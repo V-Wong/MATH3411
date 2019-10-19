@@ -28,9 +28,11 @@ def encode(message: str) -> list:
 
     message = list(message)
 
+    # Print headings
     print(RED + "{: <20} {: <10} {: <10} {: <30} {: <20}".format(
           "r", "s", "l", "new dictionary entry", "output"))
 
+    # Print message before any algorithm steps
     print(BLACK + "{: <20} {: <10} {: <10} {: <30} {: <20}".format(
           "".join(message), "", "", "", ""))
 
@@ -55,6 +57,7 @@ def encode(message: str) -> list:
 
         length = max_length + 1 if max_length != 0 else 0
 
+        # Print new row of table
         print(BLACK + "{: <20}{} {: <10}{} {: <10} {}{: <30}        {: <20}".format(
               "".join(old_message), BLUE, prefix, BLACK, length, 
               BLUE, prefix + BLACK + next_char, str(next_code)))
