@@ -24,7 +24,7 @@ def longest_prefix(prefixes: [str], message: str) -> (str, int):
 
 
 def encode(message: str) -> list:
-    d = []
+    d = [""]
     encoding = []
 
     message = list(message)
@@ -47,23 +47,16 @@ def encode(message: str) -> list:
         else:
             next_char = ""
     
-        if prefix:
-            next_code = f"({max_length + 1}, {next_char})"
-            encoding.append(next_code)
-            d.append(prefix + next_char)
-        else:
-            next_code = f"(0, {next_char})"
-            encoding.append(next_code)
-            d.append(next_char)
-
-        length = max_length + 1 if max_length != 0 else 0
-
+        next_code = f"({d.index(prefix)}, {next_char})"
+        encoding.append(next_code)
+        d.append(prefix + next_char)
+ 
         # Print new row of table
         print(BLACK + "{: <20}{} {: <10}{} {: <10} {}{: <30}        {: <20}".format(
-              "".join(old_message), BLUE, prefix, BLACK, length, 
+              "".join(old_message), BLUE, prefix, BLACK, d.index(prefix), 
               BLUE, prefix + BLACK + next_char, str(next_code)))
 
-    return 
+    return encoding
 
 
 def decoding(message: list) -> str:
@@ -78,8 +71,8 @@ def decoding(message: list) -> str:
     return decoding
 
 if __name__ == "__main__":
-    # message = sys.argv[1]
-    # print("Encoded message:", "".join(encode(message)))
+    message = sys.argv[1]
+    print("Encoded message:", "".join(encode(message)))
 
-    message = [(0, "t"),(0, "o"),(0, " "),(0, "b"),(0, "e"),(3, "o"),(0, "r"),(3,"n"),(2, "t"),(3, "t"),(2, " "),(4, "e")]
-    print("".join(decoding(message)))
+    #message = [(0, "t"),(0, "o"),(0, " "),(0, "b"),(0, "e"),(3, "o"),(0, "r"),(3,"n"),(2, "t"),(3, "t"),(2, " "),(4, "e")]
+    #print("".join(decoding(message)))
