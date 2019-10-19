@@ -1,4 +1,5 @@
 import sys
+import re
 
 BLACK = "\033[1;30m"
 RED = "\033[1;31m"
@@ -67,7 +68,13 @@ def encode(message: str) -> list:
     return encoding
 
 
-def decoding(message: list) -> str:
+def format_message(message: str) -> list:
+    message = re.findall(r"\((\d+),\s*([a-zA-Z\s]+)\)", message)
+    message = list(map(lambda x: (int(x[0]), x[1]), message))
+    return message
+
+
+def decode(message: list) -> str:
     d = [""]
     decoding = []
 
@@ -78,9 +85,14 @@ def decoding(message: list) -> str:
 
     return decoding
 
-if __name__ == "__main__":
-    message = sys.argv[1]
-    print("Encoded message:", "".join(encode(message)))
 
-    #message = [(0, "t"),(0, "o"),(0, " "),(0, "b"),(0, "e"),(3, "o"),(0, "r"),(3,"n"),(2, "t"),(3, "t"),(2, " "),(4, "e")]
-    #print("".join(decoding(message)))
+if __name__ == "__main__":
+    if sys.argv[1] == "-e" or sys.argv[1] == "-encode":
+        message = sys.argv[2]
+        print("Encoded message:", "".join(encode(message)))
+    elif sys.argv[1] == "-d" or sys.argv[1] == "-decode":
+        message = sys.argv[2]
+        message = format_message(message)
+        print("Decoded message:", "".join(decode(message)))
+    else:
+        print(f"Usage: python3 {sys.argv[0]} [(-e)ncode|(-d)ecode] [message|codeword]")
