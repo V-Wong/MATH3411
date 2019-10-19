@@ -58,12 +58,12 @@ def encode(message: str) -> list:
         if prefix:
             print(BLACK + "".join(old_message).ljust(20), BLUE + prefix.ljust(10), 
                 BLACK + str(d.index(prefix)).ljust(10), str(len(d) - 1) + ".", 
-                BLUE + str(prefix + BLACK + next_char).ljust(37),
+                BLUE + str(prefix + BLACK + next_char).ljust(34),
                 next_code.ljust(20))
         else:
             print(BLACK + "".join(old_message).ljust(20), BLUE + "∅".ljust(10), 
                 BLACK + str(d.index(prefix)).ljust(10), str(len(d) - 1) + ".", 
-                BLUE + str(prefix + BLACK + next_char).ljust(37),
+                BLUE + str(prefix + BLACK + next_char).ljust(34),
                 next_code.ljust(20))
  
     return encoding
