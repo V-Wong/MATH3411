@@ -4,6 +4,7 @@ import re
 BLACK = "\033[1;30m"
 RED = "\033[1;31m"
 BLUE = "\033[1;34m"
+YELLOW = "\033[1;33m"
 
 def longest_prefix(prefixes: [str], message: str) -> (str, int):
     max_length = 0
@@ -78,10 +79,19 @@ def decode(message: list) -> str:
     d = [""]
     decoding = []
 
+    # Print headings
+    print(RED + "output".ljust(20), "new dictionary entry".ljust(10))
+    print(BLACK + "".ljust(20), "0. " + BLUE + "∅".ljust(10))
+
     for symbol in message:
-        word = d[symbol[0]] + symbol[1]
+        char = str(symbol[1]).replace(" ", "_")
+        output = f"({symbol[0]}, {char})"
+
+        word = (d[symbol[0]] + symbol[1]).replace(" ", "_")
         d.append(word)
         decoding.append(word)
+
+        print(BLACK + output.ljust(20), f"{len(d) - 1}. " + BLUE + f"{word}".ljust(10))
 
     return decoding
 
@@ -89,10 +99,10 @@ def decode(message: list) -> str:
 if __name__ == "__main__":
     if sys.argv[1] == "-e" or sys.argv[1] == "-encode":
         message = sys.argv[2]
-        print("Encoded message:", "".join(encode(message)))
+        print(YELLOW + "Encoded message:", "".join(encode(message)))
     elif sys.argv[1] == "-d" or sys.argv[1] == "-decode":
         message = sys.argv[2]
         message = format_message(message)
-        print("Decoded message:", "".join(decode(message)))
+        print(YELLOW + "Decoded message:", "".join(decode(message)))
     else:
         print(f"Usage: python3 {sys.argv[0]} [(-e)ncode|(-d)ecode] [message|codeword]")
