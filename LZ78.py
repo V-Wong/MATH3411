@@ -22,6 +22,7 @@ def longest_prefix(prefixes: [str], message: str) -> (str, int):
             
     return longest_prefix, max_length
 
+
 def encode(message: str) -> list:
     d = []
     encoding = []
@@ -62,8 +63,23 @@ def encode(message: str) -> list:
               "".join(old_message), BLUE, prefix, BLACK, length, 
               BLUE, prefix + BLACK + next_char, str(next_code)))
 
-    return encoding
+    return 
+
+
+def decoding(message: list) -> str:
+    d = [""]
+    decoding = []
+
+    for symbol in message:
+        word = d[symbol[0]] + symbol[1]
+        d.append(word)
+        decoding.append(word)
+
+    return decoding
 
 if __name__ == "__main__":
-    message = sys.argv[1]
-    print("Encoded message:", "".join(encode(message)))
+    # message = sys.argv[1]
+    # print("Encoded message:", "".join(encode(message)))
+
+    message = [(0, "t"),(0, "o"),(0, " "),(0, "b"),(0, "e"),(3, "o"),(0, "r"),(3,"n"),(2, "t"),(3, "t"),(2, " "),(4, "e")]
+    print("".join(decoding(message)))
