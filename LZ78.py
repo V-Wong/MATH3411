@@ -2,6 +2,7 @@ import sys
 
 BLACK = "\033[1;30m"
 RED = "\033[1;31m"
+BLUE = "\033[1;34m"
 
 def longest_prefix(prefixes: [str], message: str) -> (str, int):
     max_length = 0
@@ -27,12 +28,11 @@ def encode(message: str) -> list:
 
     message = list(message)
 
-    print(RED + "{: >20} {: >10} {: >10} {: >40} {: >20}".format(
+    print(RED + "{: <20} {: <10} {: <10} {: <30} {: <20}".format(
           "r", "s", "l", "new dictionary entry", "output"))
 
-    print(BLACK + "{: >20} {: >10} {: >10} {: >40} {: >20}".format(
-          "".join(message), "", "", 
-          "", ""))
+    print(BLACK + "{: <20} {: <10} {: <10} {: <30} {: <20}".format(
+          "".join(message), "", "", "", ""))
 
     while message:
         prefix, max_length = longest_prefix(d, message)
@@ -55,9 +55,9 @@ def encode(message: str) -> list:
 
         length = max_length + 1 if max_length != 0 else 0
 
-        print(BLACK + "{: >20} {: >10} {: >10} {: >30} {: >20}".format(
-              "".join(old_message), prefix, length, 
-              prefix + next_char, str(next_code)))
+        print(BLACK + "{: <20}{} {: <10}{} {: <10} {}{: <30}        {: <20}".format(
+              "".join(old_message), BLUE, prefix, BLACK, length, 
+              BLUE, prefix + BLACK + next_char, str(next_code)))
 
     return encoding
 
