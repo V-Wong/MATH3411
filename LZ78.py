@@ -27,15 +27,17 @@ def encode(message: str) -> list:
     d = [""]
     encoding = []
 
+    message = message.replace(" ", "_")
     message = list(message)
 
     # Print headings
-    print(RED + "{: <20} {: <10} {: <10} {: <30} {: <20}".format(
-          "r", "s", "l", "new dictionary entry", "output"))
+    print(RED + "r".ljust(20), "s".ljust(10), 
+          "l".ljust(10), "new dictionary entry".ljust(30), 
+          "output".ljust(20))
 
     # Print message before any algorithm steps
     print(BLACK + "{: <20} {: <10} {: <10} {: <30} {: <20}".format(
-          "".join(message), "", "", "", ""))
+          "", "", "", "0. ∅", ""))
 
     while message:
         prefix, max_length = longest_prefix(d, message)
@@ -50,12 +52,18 @@ def encode(message: str) -> list:
         next_code = f"({d.index(prefix)}, {next_char})"
         encoding.append(next_code)
         d.append(prefix + next_char)
- 
-        # Print new row of table
-        print(BLACK + "{: <20}{} {: <10}{} {: <10} {}{: <30}        {: <20}".format(
-              "".join(old_message), BLUE, prefix, BLACK, d.index(prefix), 
-              BLUE, prefix + BLACK + next_char, str(next_code)))
 
+        if prefix:
+            print(BLACK + "".join(old_message).ljust(20), BLUE + prefix.ljust(10), 
+                BLACK + str(d.index(prefix)).ljust(10), str(len(d) - 1) + ".", 
+                BLUE + str(prefix + BLACK + next_char).ljust(37),
+                next_code.ljust(20))
+        else:
+            print(BLACK + "".join(old_message).ljust(20), BLUE + "∅".ljust(10), 
+                BLACK + str(d.index(prefix)).ljust(10), str(len(d) - 1) + ".", 
+                BLUE + str(prefix + BLACK + next_char).ljust(37),
+                next_code.ljust(20))
+ 
     return encoding
 
 
