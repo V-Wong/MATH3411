@@ -1,5 +1,6 @@
 from typing import List, Callable
 import math
+import time
 
 
 def naive_trial_factorisation(n: int) -> List[int]:
@@ -60,6 +61,17 @@ def fully_factorise(n: int, f: Callable) -> (int, int):
 
 
 if __name__ == "__main__":
-    print(naive_trial_factorisation(10))
-    print(fermat_factorisation(100))
-    print(fully_factorise(80, fermat_factorisation))
+    start = time.time()
+    print(naive_trial_factorisation(1373 * 1291 * 1223))
+    end = time.time()
+    print(f"Time taken for trial factorisation: {round(end - start, 5)}")
+
+    start = time.time()
+    print(fermat_factorisation(1373 * 1291 * 1223))
+    end = time.time()
+    print(f"Time taken for 2-Fermat factorisation: {round(end - start, 5)}")
+
+    start = time.time()
+    print(fully_factorise(1373 * 1291 * 1223, fermat_factorisation))
+    end = time.time()
+    print(f"Time taken for full-Fermat factorisation: {round(end - start, 5)}")
