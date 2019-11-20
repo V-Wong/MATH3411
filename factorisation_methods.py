@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Callable
 import math
 
 
@@ -24,11 +24,15 @@ def naive_trial_factorisation(n: int) -> List[int]:
 
     return factors
 
+
 def fermat_factorisation(n: int) -> (int, int):
     '''
     Tests all t from sqrt(n) to n.
     If s^2 = t^2 - n is a square, then return n = ab = (t + s)(t - s).
     '''
+
+    if n % 2 == 0:
+        return (int(n / 2), 2)
 
     for t in range(math.ceil(math.sqrt(n)), n + 1):
         s_squared = t ** 2 - n
@@ -38,6 +42,24 @@ def fermat_factorisation(n: int) -> (int, int):
             return [int(s + t), int(t - s)]
 
 
+def fully_factorise(n: int, f: Callable) -> (int, int):
+    ''' 
+    Given a factorisation function that ouputs 2 factors,
+    this function will recursively factor
+    until we reach have reached prime factorisation.
+    '''
+
+    if n == 1:
+        return [1]
+    else:
+        num0, num1 = f(n)
+        if num0 == n or num1 == n:
+            return [n]
+        else:
+            return fully_factorise(num0, f) + fully_factorise(num1, f)
+
+
 if __name__ == "__main__":
-    print(naive_trial_factorisation(12412312312412351))
-    print(fermat_factorisation(231412312321))
+    print(naive_trial_factorisation(10))
+    print(fermat_factorisation(100))
+    print(fully_factorise(80, fermat_factorisation))
