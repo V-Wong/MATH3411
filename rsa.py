@@ -40,7 +40,12 @@ class RSA:
     def encrypt(self, num: int):
         return modulo(num, self.e, self.n)
 
+    def decrypt(self, num: int):
+        return modulo(num, self.d, self.n)
+
 
 if __name__ == "__main__":
-    rsa = RSA(17 * 23, 235)
+    rsa = RSA(533, 233)
+    print(rsa.decrypt(383))
+
     
